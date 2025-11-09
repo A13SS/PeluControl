@@ -1,7 +1,9 @@
+import '../styles/MuestraCliente.css';
+
 function MuestraCliente({ cliente }) {
   return (
-    <div >
-      <strong>{cliente.nombre}</strong> — {cliente.telefono}
+    <div className="clienteItem">
+      <strong>{cliente.nombre} — {cliente.telefono}</strong>
     </div>
   );
 }

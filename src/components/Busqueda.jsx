@@ -1,6 +1,8 @@
+import '../styles/Busqueda.css';
+
 function Busqueda({ value, onChange }) {
   return (
-    <input
+    <input className="busquedaInput"
       type="text"
       placeholder="Buscar cliente por nombre o teléfono: "
       value={value}

@@ -1,0 +1,18 @@
+.clienteItem {
+  padding: 14px;
+  margin: 8px 0;
+  background: #f9f9f9;
+  border-left: 4px solid #3498db;
+  border-radius: 6px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
+}
+
+.clienteItem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.clienteItem strong {
+  color: #2c3e50;
+}

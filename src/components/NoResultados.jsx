@@ -1,5 +1,7 @@
+import '../styles/NoResultados.css';
+
 function NoResultados() {
-  return <p>No se encontraron clientes.</p>;
+  return <p className="noResultados">No se encontraron clientes.</p>;
 }
 
 export default NoResultados
