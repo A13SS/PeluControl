@@ -31,7 +31,6 @@ function ListarClientes() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      //Si no hay error, se cargan los clientes
       setClientes(clientesIniciales);
       setCargando(false);
     }, 2000);
