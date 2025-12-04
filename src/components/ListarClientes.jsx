@@ -1,6 +1,7 @@
 import Busqueda from './Busqueda';
 import MuestraCliente from './MuestraCliente';
 import NoResultados from './NoResultados';
+import FormularioNuevoCliente from './FormularioNuevoCliente';
 import { useState, useEffect} from 'react';
 import '../styles/ListarClientes.css';
 
@@ -26,6 +27,8 @@ function ListarClientes() {
   const [clientes, setClientes] = useState([]);      //Reemplazará a clientesIniciales después de cargar
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(false);
+
+  const [mostrarFormulario, setMostrarFormulario] = useState(false);  //Se usará para el conrol del formulario
 
 
 
@@ -59,6 +62,19 @@ function ListarClientes() {
   if (error) {
     return <div className="listarClientesError">Error al cargar los datos</div>;
   }
+
+  //Añadimos un nuevo cliente al estado clientes cuando se envia el formulario.
+  //Data es un objeto con los campos validados del formulario
+  const GuardarCliente = (data) => {
+    const nuevoCliente = {
+      //Generamos un id unico para el nuevo cliente. Si hay clientes ya, lo que hace es buscar el mayor id y le suma uno. En caso de no haber clientes le pone 1
+      //Es importante para evitar duplicados cuando hagamos el MuestraCliente
+      id: clientes.length > 0 ? Math.max(...clientes.map(c => c.id)) + 1 : 1,
+      nombre: data.nombre,
+      telefono: data.telefono,
+    };
+    setClientes([...clientes, nuevoCliente]);
+  };
 
   const filtrados = clientes.filter(cliente =>
     cliente.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
@@ -111,6 +127,24 @@ function ListarClientes() {
   return (
     <div className="listarClientesContainer">
       <h2 className="listarClientesTitulo"><strong>Clientes</strong></h2>
+
+      {/*Boton para añadir un nuevo cliente*/}
+      <button
+        className="listarClientesBotonNuevoCliente"
+        onClick={() => setMostrarFormulario(!mostrarFormulario)}
+      >
+        {mostrarFormulario ? "Cancelar" : "Añadir cliente"}
+      </button>
+
+      {/*Muestra el formulario o no depende de la opcion*/}
+      {mostrarFormulario && (
+        <FormularioNuevoCliente
+          onGuardar={GuardarCliente}
+          onCancel={() => setMostrarFormulario(false)}
+        />
+      )}
+
+
       <Busqueda
         value={busqueda}
         onChange={(e) => setBusqueda(e.target.value)}
@@ -129,7 +163,7 @@ function ListarClientes() {
             <option value={3}>3</option>
             <option value={5}>5</option>
             <option value={10}>10</option>
-            <option value={20}>15</option>
+            <option value={15}>15</option>
           </select>
           clientes por página
         </label>
